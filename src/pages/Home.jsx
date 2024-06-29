@@ -17,7 +17,9 @@ const Home = () => {
         amet quam aliquam quas incidunt debitis sit aut a soluta quisquam repellat dignissimos qui.
         Perspiciatis similique quaerat reiciendis nam aliquam?
       </p>
-
+      <div>
+        <p>Form Coming Soon...</p>
+      </div>
       <Link to="/posts" className="flex items-center text-blue-600 hover:underline">
         Posts
         <Icon icon="mdi:arrow-right" className="ml-2" />
