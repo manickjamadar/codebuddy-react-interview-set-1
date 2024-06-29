@@ -3,3 +3,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.base-input{
+    @apply block border rounded w-full p-3 px-4 outline-none;
+}
+.base-button{
+    @apply block rounded bg-orange-500 text-white py-2 px-6 text-sm hover:bg-orange-600 disabled:bg-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed;
+}
