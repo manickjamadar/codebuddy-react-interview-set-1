@@ -1,5 +1,4 @@
-import React from "react";
-import FirstForm from "./FirstForm";
+import CredentialForm from "./CredentialForm";
 
 const MultiStepForm = () => {
   return (
@@ -8,7 +7,7 @@ const MultiStepForm = () => {
         <p>Form Navigation</p>
       </div>
       <div>
-        <FirstForm />
+        <CredentialForm />
       </div>
     </div>
   );
