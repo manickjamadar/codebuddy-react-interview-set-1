@@ -1,4 +1,5 @@
 import CredentialForm from "./CredentialForm";
+// import PersonalInfoForm from "./PersonInfoForm";
 
 const MultiStepForm = () => {
   return (
@@ -8,6 +9,7 @@ const MultiStepForm = () => {
       </div>
       <div>
         <CredentialForm />
+        {/* <PersonalInfoForm /> */}
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import BaseInput from "../Base/BaseInput";
-const schema = yup.object({
+const schema = yup.object().shape({
   email: yup.string().trim().email("Email is invalid").required("Email is required"),
   password: yup
     .string()
