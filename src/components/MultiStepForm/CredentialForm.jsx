@@ -2,8 +2,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import BaseInput from "../Base/BaseInput";
+import MultiFormButtonGroup from "./MultiFormButtonGroup";
+import PropTypes from "prop-types";
+import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
 const schema = yup.object().shape({
-  email: yup.string().trim().email("Email is invalid").required("Email is required"),
+  emailId: yup.string().trim().email("Email is invalid").required("Email is required"),
   password: yup
     .string()
     .required("Password is required")
@@ -24,27 +27,25 @@ const schema = yup.object().shape({
       },
     ),
 });
-const CredentialForm = () => {
+const CredentialForm = ({ onSave, onNext }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      email: "",
+      emailId: "",
       password: "",
     },
     resolver: yupResolver(schema),
   });
-  const handleDataAfterSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = useSubmitMultiForm({ onNext, onSave });
   return (
     <div className="card flex flex-col gap-6 ">
       <h1 className="form-header text-center">Credential Info</h1>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleDataAfterSubmit)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
-          name="email"
+          name="emailId"
           render={({ field: { value, onChange }, fieldState: { error, invalid } }) => (
             <BaseInput
-              id="email"
+              id="emailId"
               label="Email"
               placeholder="Enter your email"
               showError={invalid}
@@ -70,17 +71,13 @@ const CredentialForm = () => {
             />
           )}
         />
-        <div className="flex justify-center gap-4">
-          <button className="base-button" type="button" disabled>
-            Back
-          </button>
-          <button className="base-button" type="submit">
-            Save
-          </button>
-        </div>
+        <MultiFormButtonGroup isBackDisabled={true} />
       </form>
     </div>
   );
 };
-
+CredentialForm.propTypes = {
+  onSave: PropTypes.func,
+  onNext: PropTypes.func,
+};
 export default CredentialForm;

@@ -1,8 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
+import PropTypes from "prop-types";
 import * as yup from "yup";
 import BaseInput from "../Base/BaseInput";
 import BaseCheckbox from "../Base/BaseCheckBox";
+import MultiFormButtonGroup from "./MultiFormButtonGroup";
+import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
 const schema = yup.object().shape({
   phoneNumber: yup
     .string()
@@ -14,7 +17,7 @@ const schema = yup.object().shape({
     .oneOf([true], "You must accept the terms and conditions"),
 });
 const countryCodes = ["+91", "+1"];
-const AdditionalInfoForm = () => {
+const AdditionalInfoForm = ({ onBack, onSave }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       countryCode: countryCodes[0],
@@ -23,13 +26,11 @@ const AdditionalInfoForm = () => {
     },
     resolver: yupResolver(schema),
   });
-  const handleDataAfterSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = useSubmitMultiForm({ onSave });
   return (
     <div className="card flex flex-col gap-6 ">
       <h1 className="form-header text-center">Additional Info</h1>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(handleDataAfterSubmit)}>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-1">
           <label htmlFor="phoneNumber" className="base-input-label">
             Phone Number
@@ -83,17 +84,13 @@ const AdditionalInfoForm = () => {
             />
           )}
         />
-        <div className="flex justify-center gap-4">
-          <button className="base-button" type="button">
-            Back
-          </button>
-          <button className="base-button" type="submit">
-            Save
-          </button>
-        </div>
+        <MultiFormButtonGroup isSaveAndNextDisabled onBack={onBack} />
       </form>
     </div>
   );
 };
-
+AdditionalInfoForm.propTypes = {
+  onBack: PropTypes.func,
+  onSave: PropTypes.func,
+};
 export default AdditionalInfoForm;

@@ -1,5 +1,4 @@
 import { Icon } from "@iconify/react";
-import { Link } from "react-router-dom";
 import MultiStepForm from "../components/MultiStepForm/MultiStepForm";
 
 const Home = () => {
@@ -10,14 +9,8 @@ const Home = () => {
           <Icon icon="mdi:home" className="mr-2" />
           Home
         </h1>
-
         <h2 className="mb-3 text-2xl">Welcome to the home page!</h2>
-
-        <p className="mb-7">Fill up the form or go to posts page</p>
-        <Link to="/posts" className="flex items-center text-blue-600 hover:underline">
-          Posts
-          <Icon icon="mdi:arrow-right" className="ml-2" />
-        </Link>
+        <p className="mb-1">Please fill up the form</p>
       </div>
       <MultiStepForm />
     </div>
