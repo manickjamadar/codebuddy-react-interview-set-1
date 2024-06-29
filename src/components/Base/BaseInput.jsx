@@ -15,9 +15,11 @@ const BaseInput = (props) => {
   } = props;
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="font-medium capitalize">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={id} className="base-input-label">
+          {label}
+        </label>
+      )}
       <input
         id={id}
         className={cn(className, "base-input")}
@@ -33,7 +35,7 @@ const BaseInput = (props) => {
   );
 };
 BaseInput.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   id: PropTypes.string.isRequired,
   showError: PropTypes.bool,
   errorMessage: PropTypes.string,
