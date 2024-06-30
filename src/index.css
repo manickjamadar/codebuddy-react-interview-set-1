@@ -3,3 +3,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.base-input {
+    @apply block w-full rounded border p-3 px-4 outline-none transition-all focus:shadow-md;
+  }
+  .base-input-label {
+    @apply font-medium capitalize;
+  }
+  .base-input[data-error="true"] {
+    @apply border-red-500;
+  }
+  .base-button {
+    @apply block rounded bg-orange-500 px-6 py-3 text-sm text-white transition-all hover:bg-orange-600 active:bg-orange-500 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400;
+  }
