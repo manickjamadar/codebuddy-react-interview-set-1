@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 const ButtonGroup = ({ config }) => {
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex flex-col justify-center gap-4 sm:flex-row">
       {config.map(({ label, name, disabled, onClick, type }) => (
         <button
           key={name}
