@@ -24,13 +24,10 @@ const SeatRowForm = ({ onSubmit }) => {
   };
   return (
     <form
-      className="mx-auto flex max-w-sm flex-col gap-4"
+      className="mx-auto flex max-w-md flex-col gap-4"
       onSubmit={handleSubmit(handleSubmittedData)}
     >
       <div className="flex flex-col gap-1">
-        <label htmlFor="row" className="base-input-label text-center">
-          Total Row
-        </label>
         <Controller
           name="totalRow"
           control={control}

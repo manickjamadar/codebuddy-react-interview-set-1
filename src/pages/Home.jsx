@@ -62,6 +62,10 @@ const Home = () => {
 
   return (
     <div className="pb-[110px]">
+      <h1 className="text-center text-xl font-medium text-gray-700">Movie Ticket Booking</h1>
+      <p className="mb-2 text-center text-sm text-slate-500">
+        Enter the row to fetch seat before booking
+      </p>
       <SeatRowForm onSubmit={handleTotalRowSubmit} />
       <div className="mb-4"></div>
       <SeatsRenderer
