@@ -10,6 +10,7 @@ import { useMutation } from "react-query";
 import { postService } from "../../services";
 import { useNavigate } from "react-router-dom";
 import { PagePaths } from "../../config/constants";
+import exclude from "../../utils/exclude";
 
 const MultiStepForm = () => {
   const navigate = useNavigate();
@@ -28,15 +29,7 @@ const MultiStepForm = () => {
   const handleSubmit = useCallback(
     (data) => {
       const rawData = { ...formData, ...data };
-      const payload = {
-        emailId: rawData.emailId,
-        password: rawData.password,
-        firstName: rawData.firstName,
-        lastName: rawData.lastName,
-        address: rawData.address,
-        countryCode: rawData.countryCode,
-        phoneNumber: rawData.phoneNumber,
-      };
+      const payload = exclude(rawData, ["acceptTermsAndCondition"]);
       submitPostMutate(payload, {
         onSuccess: () => {
           toast.success("Data Submitted Successfully");
