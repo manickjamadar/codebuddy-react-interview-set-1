@@ -3,3 +3,4 @@ export const multiFormButtonNames = {
   save: "save",
   saveAndNext: "save-next",
 };
+export const BASE_URL = "https://codebuddy.review";

@@ -6,28 +6,42 @@ import AdditionalInfoForm from "./AdditionalInfoForm";
 import useFormTab from "../../hooks/useFormTab";
 import MultiFormContext from "../../contexts/MultiFormContext";
 import { toast } from "sonner";
+import { useMutation } from "react-query";
+import { postService } from "../../services";
 
 const MultiStepForm = () => {
-  const { saveFormData } = useContext(MultiFormContext);
+  const { mutate: submitPostMutate } = useMutation((payload) => postService.submitPost(payload));
+  const { formData, saveFormData } = useContext(MultiFormContext);
   const { currentTab, activeTabs, goToNextTab, goToPreviousTab, jumpToTab, makeCurrentTabActive } =
     useFormTab();
   const handleSave = useCallback(
-    (data, showToast = true) => {
+    (data) => {
       makeCurrentTabActive();
       saveFormData(data);
-      showToast && toast.success("Data Saved Successfully");
+      toast.success("Data Saved Successfully");
     },
     [makeCurrentTabActive, saveFormData],
   );
-  const handleSubmit = useCallback(() => {
-    toast.success("Data Submitted Successfully");
-  }, []);
-  const handleSaveAndSubmit = useCallback(
+  const handleSubmit = useCallback(
     (data) => {
-      handleSave(data, false);
-      handleSubmit();
+      const rawData = { ...formData, ...data };
+      const payload = {
+        emailId: rawData.emailId,
+        password: rawData.password,
+        firstName: rawData.firstName,
+        lastName: rawData.lastName,
+        address: rawData.address,
+        countryCode: rawData.countryCode,
+        phoneNumber: rawData.phoneNumber,
+      };
+      submitPostMutate(payload, {
+        onSuccess: (resData) => {
+          console.log("resData: ", resData);
+          toast.success("Data Submitted Successfully");
+        },
+      });
     },
-    [handleSave, handleSubmit],
+    [submitPostMutate, formData],
   );
   const formList = useMemo(() => {
     return [
@@ -38,13 +52,9 @@ const MultiStepForm = () => {
         onSave={handleSave}
         onNext={goToNextTab}
       />,
-      <AdditionalInfoForm
-        key="additional-form"
-        onBack={goToPreviousTab}
-        onSave={handleSaveAndSubmit}
-      />,
+      <AdditionalInfoForm key="additional-form" onBack={goToPreviousTab} onSave={handleSubmit} />,
     ];
-  }, [goToNextTab, goToPreviousTab, handleSaveAndSubmit, handleSave]);
+  }, [goToNextTab, goToPreviousTab, handleSubmit, handleSave]);
   return (
     <div className="flex flex-col gap-4">
       <FormTabNavigation
