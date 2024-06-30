@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import SeatRowForm from "../components/TotalCostViewer/SeatRowForm/SeatRowForm";
 import TotalCostViewer from "../components/TotalCostViewer/TotalCostViewer";
 import { useQuery } from "react-query";
@@ -6,20 +6,27 @@ import { seatService } from "../services";
 import SeatsRenderer from "../components/SeatsRenderer/SeatsRenderer";
 import useSeatIds from "../hooks/useSeatIds";
 import { toast } from "sonner";
+import useSeatCost from "../hooks/useSeatCost";
 
 const Home = () => {
   const [totalRow, setTotalRow] = useState(undefined);
-  const { isSeatSelected, toggleSeatSelection, totalSelectedSeats, resetSelectedSeats } =
-    useSeatIds();
+  const {
+    selectedSeatIdList,
+    isSeatSelected,
+    toggleSeatSelection,
+    totalSelectedSeats,
+    resetSelectedSeats,
+  } = useSeatIds();
+  const { initializeSeatCost, getTotalCost } = useSeatCost();
   const { data: seatsList, isLoading } = useQuery({
     queryKey: ["seatsList", totalRow],
-    queryFn: () => totalRow && seatService.getAllSeatsByRow(totalRow),
-    enabled: !!totalRow,
+    queryFn: () => (totalRow ? seatService.getAllSeatsByRow(totalRow) : []),
     keepPreviousData: true,
     refetchOnWindowFocus: false,
     initialData: [],
-    onSuccess: () => {
+    onSuccess: (rowSeatsList) => {
       resetSelectedSeats();
+      initializeSeatCost(rowSeatsList);
     },
   });
   const handlSeatClick = (seatId) => {
@@ -32,10 +39,14 @@ const Home = () => {
   const handleTotalRowSubmit = (newTotalRow) => {
     setTotalRow(newTotalRow);
   };
+  const totalCost = useMemo(
+    () => getTotalCost(selectedSeatIdList),
+    [selectedSeatIdList, getTotalCost],
+  );
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  // console.log("seatsList: ", seatsList);
+
   return (
     <div>
       <SeatRowForm onSubmit={handleTotalRowSubmit} />
@@ -49,7 +60,7 @@ const Home = () => {
         <button className="base-button" disabled={totalSelectedSeats === 0}>
           Book Now
         </button>
-        <TotalCostViewer cost={300} />
+        <TotalCostViewer cost={totalCost} />
       </div>
     </div>
   );

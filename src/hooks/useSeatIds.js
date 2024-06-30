@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const useSeatIds = () => {
   const [selectedSeatIds, setSelectedSeatIds] = useState(new Set());
@@ -19,11 +19,13 @@ const useSeatIds = () => {
   const resetSelectedSeats = () => {
     setSelectedSeatIds(new Set());
   };
+  const selectedSeatIdList = useMemo(() => Array.from(selectedSeatIds), [selectedSeatIds]);
   return {
     isSeatSelected,
     totalSelectedSeats: selectedSeatIds.size,
     toggleSeatSelection,
     resetSelectedSeats,
+    selectedSeatIdList,
   };
 };
 export default useSeatIds;
