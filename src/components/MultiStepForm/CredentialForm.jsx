@@ -13,7 +13,6 @@ const schema = yup.object().shape({
   password: yup
     .string()
     .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
     .test(
       "pattern",
       "Password must contain at least 2 uppercase letters, 2 lowercase letters, 2 digits, and 2 special characters",
