@@ -5,24 +5,26 @@ import FormTabNavigation from "../FormTabNavigation/FormTabNavigation";
 import AdditionalInfoForm from "./AdditionalInfoForm";
 import useFormTab from "../../hooks/useFormTab";
 import MultiFormContext from "../../contexts/MultiFormContext";
+import { toast } from "sonner";
 
 const MultiStepForm = () => {
   const { saveFormData } = useContext(MultiFormContext);
   const { currentTab, activeTabs, goToNextTab, goToPreviousTab, jumpToTab, makeCurrentTabActive } =
     useFormTab();
   const handleSave = useCallback(
-    (data) => {
+    (data, showToast = true) => {
       makeCurrentTabActive();
       saveFormData(data);
+      showToast && toast.success("Data Saved Successfully");
     },
     [makeCurrentTabActive, saveFormData],
   );
   const handleSubmit = useCallback(() => {
-    console.log("submitting");
+    toast.success("Data Submitted Successfully");
   }, []);
   const handleSaveAndSubmit = useCallback(
     (data) => {
-      handleSave(data);
+      handleSave(data, false);
       handleSubmit();
     },
     [handleSave, handleSubmit],
