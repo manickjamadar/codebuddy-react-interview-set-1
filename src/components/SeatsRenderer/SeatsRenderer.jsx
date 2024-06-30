@@ -48,7 +48,7 @@ const SeatsRenderer = ({ rowSeatsList, onSeatClick, isSeatSelected }) => {
       </div>
       <div className="flex flex-col items-center justify-center gap-2">
         <img src="/theater-screen.png" alt="theater screen" />
-        <p className="text-sm">All eyes this way please!</p>
+        <p className="text-center text-sm">All eyes this way please!</p>
       </div>
     </div>
   );

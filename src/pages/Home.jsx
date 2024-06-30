@@ -61,7 +61,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="pb-[110px]">
       <SeatRowForm onSubmit={handleTotalRowSubmit} />
       <div className="mb-4"></div>
       <SeatsRenderer
@@ -69,7 +69,7 @@ const Home = () => {
         rowSeatsList={seatsList}
         onSeatClick={handlSeatClick}
       />
-      <div className="fixed bottom-0 left-1/2 flex w-1/3 -translate-x-1/2 flex-col items-center justify-center gap-2 rounded-t-lg bg-white px-2 py-3 pt-6 shadow-lg">
+      <div className="fixed bottom-0 left-1/2 flex w-11/12 max-w-md -translate-x-1/2 flex-col items-center justify-center gap-2 rounded-t-lg bg-white px-2 py-3 pt-6 shadow-lg">
         <button onClick={handleBooking} className="base-button" disabled={totalSelectedSeats === 0}>
           Book Now
         </button>
