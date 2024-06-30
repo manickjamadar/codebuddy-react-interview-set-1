@@ -38,9 +38,6 @@ const Home = () => {
       toggleSeatSelection(seatId);
     }
   };
-  const reset = () => {
-    setTotalRow(undefined);
-  };
   const handleTotalRowSubmit = (newTotalRow) => {
     setTotalRow(newTotalRow);
   };
@@ -48,7 +45,7 @@ const Home = () => {
     bookSeatMutate(selectedSeatIdList, {
       onSuccess: () => {
         toast.success("Booking successful");
-        reset();
+        resetSelectedSeats();
       },
       onError: () => {
         toast.error("Booking failed");

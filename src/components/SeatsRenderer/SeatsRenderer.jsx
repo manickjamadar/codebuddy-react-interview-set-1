@@ -6,8 +6,28 @@ const SeatsRenderer = ({ rowSeatsList, onSeatClick, isSeatSelected }) => {
     clickedSeatId && onSeatClick && onSeatClick(clickedSeatId);
   };
   return (
-    <div className="rounded bg-white p-6 shadow-lg">
-      <div onClick={handleClick} className="flex flex-col items-center justify-center gap-2">
+    <div className="mx-auto max-w-md rounded bg-white p-6 shadow-lg">
+      <div className="mb-4 flex flex-col gap-4 border-b pb-4">
+        <h1 className="text-center text-xl font-bold capitalize text-gray-600">Choose your seat</h1>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex items-center gap-2">
+            <SeatBox id="reserved" isReserved={true} />
+            <p className="text-sm font-medium italic text-gray-500">Reserved</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <SeatBox id="available" />
+            <p className="text-sm font-medium italic text-gray-500">Available</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <SeatBox id="reserved" isSelected={true} />
+            <p className="text-sm font-medium italic text-gray-500">Selected</p>
+          </div>
+        </div>
+      </div>
+      <div
+        onClick={handleClick}
+        className="flex flex-col items-center justify-center gap-2 p-2 pb-6"
+      >
         {rowSeatsList.length > 0 ? (
           rowSeatsList.map((row) => (
             <div key={row.id} className="flex gap-2">
@@ -23,8 +43,12 @@ const SeatsRenderer = ({ rowSeatsList, onSeatClick, isSeatSelected }) => {
             </div>
           ))
         ) : (
-          <p>No Seats Available</p>
+          <p className="text-gray-400">No Seats Available</p>
         )}
+      </div>
+      <div className="flex flex-col items-center justify-center gap-2">
+        <img src="/theater-screen.png" alt="theater screen" />
+        <p className="text-sm">All eyes this way please!</p>
       </div>
     </div>
   );
