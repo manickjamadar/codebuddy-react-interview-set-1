@@ -1,4 +1,4 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useState } from "react";
 import PropTypes from "prop-types";
 const MultiFormContext = createContext({
   formData: {},
@@ -10,9 +10,6 @@ export const MultiFormProvider = ({ children }) => {
   const saveFormData = useCallback((data) => {
     setFormData((prevData) => ({ ...prevData, ...data }));
   }, []);
-  useEffect(() => {
-    console.log("changedFormData: ", formData);
-  }, [formData]);
   return (
     <MultiFormContext.Provider value={{ formData, saveFormData }}>
       {children}

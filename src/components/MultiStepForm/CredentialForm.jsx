@@ -5,8 +5,9 @@ import BaseInput from "../Base/BaseInput";
 import MultiFormButtonGroup from "./MultiFormButtonGroup";
 import PropTypes from "prop-types";
 import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import MultiFormContext from "../../contexts/MultiFormContext";
+import BaseCheckbox from "../Base/BaseCheckBox";
 const schema = yup.object().shape({
   emailId: yup.string().trim().email("Email is invalid").required("Email is required"),
   password: yup
@@ -30,6 +31,7 @@ const schema = yup.object().shape({
     ),
 });
 const CredentialForm = ({ onSave, onNext }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const { formData } = useContext(MultiFormContext);
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -66,13 +68,19 @@ const CredentialForm = ({ onSave, onNext }) => {
               id="password"
               label="Password"
               placeholder="Enter your password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               showError={invalid}
               errorMessage={error?.message}
               value={value}
               onChange={onChange}
             />
           )}
+        />
+        <BaseCheckbox
+          id="showPassword"
+          label="Show Password"
+          value={showPassword}
+          onChange={(e) => setShowPassword(e.target.checked)}
         />
         <MultiFormButtonGroup isBackDisabled={true} />
       </form>
