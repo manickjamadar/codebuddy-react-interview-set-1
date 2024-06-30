@@ -9,8 +9,8 @@ const Home = () => {
           <Icon icon="mdi:home" className="mr-2" />
           Home
         </h1>
-        <h2 className="mb-3 text-2xl">Welcome to the home page!</h2>
-        <p className="mb-1">Please fill up the form</p>
+        <h2 className="mb-3 text-2xl text-gray-600">Welcome to the home page!</h2>
+        <p className="mb-1 italic">Please fill up the form</p>
       </div>
       <MultiStepForm />
     </div>

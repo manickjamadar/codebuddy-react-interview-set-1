@@ -10,6 +10,11 @@ class ApiPostService {
     const resData = await res.json();
     return resData;
   }
-  getAllPosts() {}
+  async getAllPosts() {
+    const url = new URL("posts", this.baseUrl).href;
+    const res = await fetch(url, { method: "GET" });
+    const resData = await res.json();
+    return resData.data;
+  }
 }
 export default ApiPostService;
