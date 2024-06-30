@@ -29,8 +29,8 @@ const SeatsRenderer = ({ rowSeatsList, onSeatClick, isSeatSelected }) => {
         className="flex flex-col items-center justify-center gap-2 p-2 pb-6"
       >
         {rowSeatsList.length > 0 ? (
-          rowSeatsList.map((row) => (
-            <div key={row.id} className="flex gap-2">
+          rowSeatsList.map((row, index) => (
+            <div key={row.id} className="relative flex gap-2">
               {row.seats.map((seat) => (
                 <SeatBox
                   id={seat.id}
@@ -40,6 +40,9 @@ const SeatsRenderer = ({ rowSeatsList, onSeatClick, isSeatSelected }) => {
                   isSelected={isSeatSelected ? isSeatSelected(seat.id) : false}
                 />
               ))}
+              <p className="absolute -left-2 top-1/2 -translate-x-full -translate-y-1/2 text-[10px] text-gray-500">
+                {rowSeatsList.length - index} -
+              </p>
             </div>
           ))
         ) : (
