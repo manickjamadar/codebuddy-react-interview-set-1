@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
+import { TICKET_PRICE } from "../config/constant";
 const calculateSeatCost = (rowNumber) => rowNumber * 10;
-const ticketCost = 20;
 const useSeatCost = () => {
   const [seatCostMap, setSeatCostMap] = useState(new Map());
   const initializeSeatCost = (rowSeatsList) => {
@@ -21,7 +21,7 @@ const useSeatCost = () => {
         (total, seatId) => seatCostMap.get(seatId) + total,
         0,
       );
-      return totalSeatCost + ticketCost;
+      return totalSeatCost + TICKET_PRICE;
     },
     [seatCostMap],
   );

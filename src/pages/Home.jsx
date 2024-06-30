@@ -7,6 +7,7 @@ import SeatsRenderer from "../components/SeatsRenderer/SeatsRenderer";
 import useSeatIds from "../hooks/useSeatIds";
 import { toast } from "sonner";
 import useSeatCost from "../hooks/useSeatCost";
+import { MAXIMUM_SEAT_BOOKING_ALLOWED } from "../config/constant";
 
 const Home = () => {
   const [totalRow, setTotalRow] = useState(undefined);
@@ -30,8 +31,8 @@ const Home = () => {
     },
   });
   const handlSeatClick = (seatId) => {
-    if (totalSelectedSeats === 5 && !isSeatSelected(seatId)) {
-      toast.error("Maximum of 5 seats per booking is allowed");
+    if (totalSelectedSeats === MAXIMUM_SEAT_BOOKING_ALLOWED && !isSeatSelected(seatId)) {
+      toast.error("Maximum seat limit per booking reached");
     } else {
       toggleSeatSelection(seatId);
     }
