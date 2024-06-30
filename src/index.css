@@ -34,3 +34,24 @@ input[type="number"]::-webkit-outer-spin-button {
 .base-checkbox {
   @apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600;
 }
+.tab-button {
+  @apply box-border h-8 w-8 cursor-not-allowed rounded-full bg-orange-600 text-sm text-white disabled:cursor-not-allowed disabled:bg-gray-500;
+}
+.tab-button[data-active="true"] {
+  @apply cursor-pointer bg-green-600;
+}
+.tab-button[data-selected="true"] {
+  @apply cursor-not-allowed border-4 border-green-500 ring-4 ring-green-300;
+}
+.tab-button[data-selected="true"][data-active="false"] {
+  @apply cursor-not-allowed border-4 border-orange-500 ring-4 ring-orange-300;
+}
+.tab-line {
+  @apply h-1 bg-orange-600;
+}
+.tab-line[aria-disabled="true"] {
+  @apply bg-gray-500;
+}
+.tab-line[data-active="true"] {
+  @apply bg-green-600;
+}
