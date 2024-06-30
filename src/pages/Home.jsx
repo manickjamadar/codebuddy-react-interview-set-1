@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import SeatRowForm from "../components/TotalCostViewer/SeatRowForm/SeatRowForm";
 import TotalCostViewer from "../components/TotalCostViewer/TotalCostViewer";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { seatService } from "../services";
 import SeatsRenderer from "../components/SeatsRenderer/SeatsRenderer";
 import useSeatIds from "../hooks/useSeatIds";
@@ -10,6 +10,7 @@ import useSeatCost from "../hooks/useSeatCost";
 import { MAXIMUM_SEAT_BOOKING_ALLOWED } from "../config/constant";
 
 const Home = () => {
+  const { mutate: bookSeatMutate } = useMutation((payload) => seatService.bookSeat(payload));
   const [totalRow, setTotalRow] = useState(undefined);
   const {
     selectedSeatIdList,
@@ -37,8 +38,22 @@ const Home = () => {
       toggleSeatSelection(seatId);
     }
   };
+  const reset = () => {
+    setTotalRow(undefined);
+  };
   const handleTotalRowSubmit = (newTotalRow) => {
     setTotalRow(newTotalRow);
+  };
+  const handleBooking = () => {
+    bookSeatMutate(selectedSeatIdList, {
+      onSuccess: () => {
+        toast.success("Booking successful");
+        reset();
+      },
+      onError: () => {
+        toast.error("Booking failed");
+      },
+    });
   };
   const totalCost = useMemo(
     () => getTotalCost(selectedSeatIdList),
@@ -58,7 +73,7 @@ const Home = () => {
         onSeatClick={handlSeatClick}
       />
       <div className="fixed bottom-0 left-1/2 flex w-1/3 -translate-x-1/2 flex-col items-center justify-center gap-2 rounded-t-lg bg-white px-2 py-3 pt-6 shadow-lg">
-        <button className="base-button" disabled={totalSelectedSeats === 0}>
+        <button onClick={handleBooking} className="base-button" disabled={totalSelectedSeats === 0}>
           Book Now
         </button>
         <TotalCostViewer cost={totalCost} />
