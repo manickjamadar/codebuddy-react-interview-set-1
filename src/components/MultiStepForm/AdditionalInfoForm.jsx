@@ -6,6 +6,8 @@ import BaseInput from "../Base/BaseInput";
 import BaseCheckbox from "../Base/BaseCheckBox";
 import MultiFormButtonGroup from "./MultiFormButtonGroup";
 import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
+import { useContext } from "react";
+import MultiFormContext from "../../contexts/MultiFormContext";
 const schema = yup.object().shape({
   phoneNumber: yup
     .string()
@@ -18,11 +20,12 @@ const schema = yup.object().shape({
 });
 const countryCodes = ["+91", "+1"];
 const AdditionalInfoForm = ({ onBack, onSave }) => {
+  const { formData } = useContext(MultiFormContext);
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      countryCode: countryCodes[0],
-      phoneNumber: "",
-      acceptTermsAndCondition: false,
+      countryCode: formData.countryCode || countryCodes[0],
+      phoneNumber: formData.phoneNumber || "",
+      acceptTermsAndCondition: formData.acceptTermsAndCondition || false,
     },
     resolver: yupResolver(schema),
   });

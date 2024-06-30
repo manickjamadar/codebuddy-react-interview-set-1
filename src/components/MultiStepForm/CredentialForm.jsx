@@ -5,6 +5,8 @@ import BaseInput from "../Base/BaseInput";
 import MultiFormButtonGroup from "./MultiFormButtonGroup";
 import PropTypes from "prop-types";
 import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
+import { useContext } from "react";
+import MultiFormContext from "../../contexts/MultiFormContext";
 const schema = yup.object().shape({
   emailId: yup.string().trim().email("Email is invalid").required("Email is required"),
   password: yup
@@ -28,10 +30,11 @@ const schema = yup.object().shape({
     ),
 });
 const CredentialForm = ({ onSave, onNext }) => {
+  const { formData } = useContext(MultiFormContext);
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      emailId: "",
-      password: "",
+      emailId: formData.emailId || "",
+      password: formData.password || "",
     },
     resolver: yupResolver(schema),
   });

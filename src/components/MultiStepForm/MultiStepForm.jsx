@@ -1,19 +1,21 @@
 import CredentialForm from "./CredentialForm";
 import PersonalInfoForm from "./PersonInfoForm";
-import { useCallback, useMemo } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import FormTabNavigation from "../FormTabNavigation/FormTabNavigation";
 import AdditionalInfoForm from "./AdditionalInfoForm";
 import useFormTab from "../../hooks/useFormTab";
+import MultiFormContext from "../../contexts/MultiFormContext";
 
 const MultiStepForm = () => {
+  const { saveFormData } = useContext(MultiFormContext);
   const { currentTab, activeTabs, goToNextTab, goToPreviousTab, jumpToTab, makeCurrentTabActive } =
     useFormTab();
   const handleSave = useCallback(
     (data) => {
       makeCurrentTabActive();
-      console.log("saving: ", data);
+      saveFormData(data);
     },
-    [makeCurrentTabActive],
+    [makeCurrentTabActive, saveFormData],
   );
   const handleSubmit = useCallback(() => {
     console.log("submitting");

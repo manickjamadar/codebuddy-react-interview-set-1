@@ -5,6 +5,8 @@ import * as yup from "yup";
 import BaseInput from "../Base/BaseInput";
 import MultiFormButtonGroup from "./MultiFormButtonGroup";
 import useSubmitMultiForm from "../../hooks/useSubmitMultiForm";
+import { useContext } from "react";
+import MultiFormContext from "../../contexts/MultiFormContext";
 const schema = yup.object().shape({
   firstName: yup
     .string()
@@ -27,11 +29,12 @@ const schema = yup.object().shape({
     .min(10, "Address must be at least 10 characters long"),
 });
 const PersonalInfoForm = ({ onBack, onSave, onNext }) => {
+  const { formData } = useContext(MultiFormContext);
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      address: "",
+      firstName: formData.firstName || "",
+      lastName: formData.lastName || "",
+      address: formData.address || "",
     },
     resolver: yupResolver(schema),
   });

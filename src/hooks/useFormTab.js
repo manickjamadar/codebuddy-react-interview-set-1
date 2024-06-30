@@ -9,12 +9,12 @@ const useFormTab = (defaultCurrentTab = 1) => {
       return newSet;
     });
   }, [currentTab]);
-  const goToNextTab = () => {
+  const goToNextTab = useCallback(() => {
     setCurrentTab((prev) => prev + 1);
-  };
-  const goToPreviousTab = () => {
+  }, []);
+  const goToPreviousTab = useCallback(() => {
     setCurrentTab((prev) => prev - 1);
-  };
+  }, []);
   const jumpToTab = (tab) => {
     setCurrentTab(tab);
   };
