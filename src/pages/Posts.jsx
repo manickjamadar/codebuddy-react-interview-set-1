@@ -22,9 +22,11 @@ const Posts = () => {
         <Icon icon="mdi:arrow-left" className="mr-2" />
         Back to Home
       </Link>
-      {postsList.map((post) => (
-        <PostCard key={post.id} post={post} />
-      ))}
+      <div className="lg: grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {postsList.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
+      </div>
     </div>
   );
 };

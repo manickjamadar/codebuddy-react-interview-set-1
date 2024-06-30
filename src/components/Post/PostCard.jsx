@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 const PostCard = ({ post }) => {
   const authorFullName = post.firstName + " " + post.lastName;
   return (
-    <div className="card">
+    <div className="card transition-all hover:-translate-y-2 hover:shadow-xl">
       <div className="aspect-video overflow-hidden rounded bg-gray-200">
         <img className="h-full w-full object-cover" src={post.image} alt={post.title} />
       </div>

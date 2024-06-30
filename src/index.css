@@ -23,7 +23,7 @@ input[type="number"]::-webkit-outer-spin-button {
   @apply border-red-500;
 }
 .base-button {
-  @apply block rounded bg-orange-500 px-6 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400;
+  @apply block rounded bg-orange-500 px-6 py-2 text-sm text-white hover:bg-orange-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-400 transition-all;
 }
 .form-header {
   @apply hidden text-lg font-semibold;
@@ -35,7 +35,7 @@ input[type="number"]::-webkit-outer-spin-button {
   @apply h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600;
 }
 .tab-button {
-  @apply box-border h-8 w-8 cursor-not-allowed rounded-full bg-orange-600 text-sm text-white disabled:cursor-not-allowed disabled:bg-gray-500;
+  @apply box-border h-8 w-8 cursor-not-allowed rounded-full bg-orange-600 text-sm text-white disabled:cursor-not-allowed disabled:bg-gray-500 transition-all;
 }
 .tab-button[data-active="true"] {
   @apply cursor-pointer bg-green-600;
@@ -47,7 +47,7 @@ input[type="number"]::-webkit-outer-spin-button {
   @apply cursor-not-allowed border-4 border-orange-500 ring-4 ring-orange-300;
 }
 .tab-line {
-  @apply h-1 bg-orange-600;
+  @apply h-1 bg-orange-600 transition-all;
 }
 .tab-line[aria-disabled="true"] {
   @apply bg-gray-500;
