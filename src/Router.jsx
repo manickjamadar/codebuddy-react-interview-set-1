@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Posts from "./pages/Posts";
 import Root from "./pages/Root";
 import { MultiFormProvider } from "./contexts/MultiFormContext";
+import { PagePaths } from "./config/constants";
 
 const router = createBrowserRouter([
   {
@@ -10,14 +11,14 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: "/",
+        path: PagePaths.home,
         element: (
           <MultiFormProvider>
             <Home />
           </MultiFormProvider>
         ),
       },
-      { path: "/posts", element: <Posts /> },
+      { path: PagePaths.posts, element: <Posts /> },
     ],
   },
 ]);

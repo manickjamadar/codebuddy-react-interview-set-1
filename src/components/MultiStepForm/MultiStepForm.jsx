@@ -8,8 +8,11 @@ import MultiFormContext from "../../contexts/MultiFormContext";
 import { toast } from "sonner";
 import { useMutation } from "react-query";
 import { postService } from "../../services";
+import { useNavigate } from "react-router-dom";
+import { PagePaths } from "../../config/constants";
 
 const MultiStepForm = () => {
+  const navigate = useNavigate();
   const { mutate: submitPostMutate } = useMutation((payload) => postService.submitPost(payload));
   const { formData, saveFormData } = useContext(MultiFormContext);
   const { currentTab, activeTabs, goToNextTab, goToPreviousTab, jumpToTab, makeCurrentTabActive } =
@@ -35,13 +38,13 @@ const MultiStepForm = () => {
         phoneNumber: rawData.phoneNumber,
       };
       submitPostMutate(payload, {
-        onSuccess: (resData) => {
-          console.log("resData: ", resData);
+        onSuccess: () => {
           toast.success("Data Submitted Successfully");
+          navigate(PagePaths.posts);
         },
       });
     },
-    [submitPostMutate, formData],
+    [submitPostMutate, formData, navigate],
   );
   const formList = useMemo(() => {
     return [
